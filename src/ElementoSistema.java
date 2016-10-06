@@ -7,6 +7,7 @@ public abstract class ElementoSistema {
 	public abstract int cantidadElementos();
 	public abstract int duracionTotal();
 	public abstract void imprimir();
+	public abstract Vector buscar(Condicion c);
 	public String getTitulo(){
 		return this.titulo;
 	}

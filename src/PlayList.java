@@ -1,6 +1,7 @@
 import java.util.*;
 public class PlayList extends ElementoSistema{
 	Vector<ElementoSistema> lista;
+	
 	public PlayList(String titulo){
 		super(titulo);
 		lista=new Vector<ElementoSistema>();
@@ -33,4 +34,22 @@ public class PlayList extends ElementoSistema{
 			lista.elementAt(i).imprimir();
 		}
 	}
+	@Override
+	public Vector<ElementoSistema> buscar(Condicion c) {
+		Vector<ElementoSistema> resultado=new Vector<ElementoSistema>();
+		for(int i=0;i<lista.size();i++){
+			ElementoSistema es1=lista.elementAt(i);
+			Vector resultadoAuxiliar= es1.buscar(c);
+			resultado.addAll(resultadoAuxiliar);
+		}
+		return resultado;
+	}
+	
+	public Vector<ElementoSistema> intercambiarTema(int origen, int destino) {
+		if ((origen<lista.size()) && (origen>=0) && (destino<lista.size())&&(destino>=0) && (origen!=destino)) { 
+		        Collections.swap(lista, origen, destino);
+		}
+		return lista;
+	}
+		
 }

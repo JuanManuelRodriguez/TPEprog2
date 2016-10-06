@@ -70,4 +70,12 @@ public class PistaDeAudio extends ElementoSistema{
 		System.out.println("Album: "+this.getTituloAlbum()+"("+this.getGenero()+","+this.getAnio()+")");
 		System.out.println("Duracion: "+this.getDuracion());
 	}
+	@Override
+	public Vector buscar(Condicion c) {
+		Vector<ElementoSistema> resultado=new Vector<ElementoSistema>();
+		if(c.cumple(this)){
+			resultado.add(this);
+		}
+		return resultado;
+	}
 }
