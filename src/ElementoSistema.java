@@ -1,4 +1,7 @@
 import java.util.*;
+
+// modificado 
+
 public abstract class ElementoSistema {
 	String titulo;
 	public ElementoSistema(String titulo){
