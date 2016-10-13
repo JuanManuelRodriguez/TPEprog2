@@ -63,12 +63,14 @@ public class PistaDeAudio extends ElementoSistema{
 		return this.getDuracion();
 	}
 	@Override
-	public void imprimir() {
-		System.out.println("Id pista: "+this.getId());
-		System.out.println("titulo: "+this.getTitulo());
-		System.out.println("Artista/Interprete: "+this.getArtistaInterprete());
-		System.out.println("Album: "+this.getTituloAlbum()+"("+this.getGenero()+","+this.getAnio()+")");
-		System.out.println("Duracion: "+this.getDuracion());
+	public String imprimir() {
+		String aImprimir=new String();
+		aImprimir="Id pista: "+this.getId()+"\n";
+		aImprimir+="titulo: "+this.getTitulo()+"\n";
+		aImprimir+="Artista/Interprete: "+this.getArtistaInterprete()+"\n";
+		aImprimir+="Album: "+this.getTituloAlbum()+"("+this.getGenero()+","+this.getAnio()+") \n";
+		aImprimir+="Duracion: "+this.getDuracion()+"\n";
+		return aImprimir;
 	}
 	@Override
 	public Vector buscar(Condicion c) {
@@ -77,5 +79,10 @@ public class PistaDeAudio extends ElementoSistema{
 			resultado.add(this);
 		}
 		return resultado;
+	}
+	@Override
+	public void eliminar(String titulo) {
+		// No hago nada(?) PREGUNTAR
+		System.out.println("pista de audio: "+this.getTitulo());
 	}
 }

@@ -1,6 +1,6 @@
 import java.util.*;
 public class PlayList extends ElementoSistema{
-	Vector<ElementoSistema> lista;
+	private Vector<ElementoSistema> lista;
 	
 	public PlayList(String titulo){
 		super(titulo);
@@ -29,10 +29,12 @@ public class PlayList extends ElementoSistema{
 		return duracion;
 	}
 	@Override
-	public void imprimir() {
+	public String imprimir() {
+		String impr=new String();
 		for(int i=0;i<lista.size();i++){
-			lista.elementAt(i).imprimir();
+			impr+=lista.elementAt(i).imprimir();
 		}
+		return impr;
 	}
 	@Override
 	public Vector<ElementoSistema> buscar(Condicion c) {
@@ -50,6 +52,16 @@ public class PlayList extends ElementoSistema{
 		        Collections.swap(lista, origen, destino);
 		}
 		return lista;
+	}
+	
+	public void eliminar(String titulo){
+		for(int i=0; i<lista.size() ;i++){
+			ElementoSistema es=lista.elementAt(i);
+			if(es.getTitulo().contains(titulo)){
+				es.eliminar(titulo);
+				lista.remove(i);	
+			}
+		}
 	}
 		
 }

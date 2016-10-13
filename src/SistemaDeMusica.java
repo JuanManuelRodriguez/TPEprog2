@@ -1,40 +1,33 @@
 import java.util.*;
 
 public class SistemaDeMusica {
-	Vector<ElementoSistema> listas;
-	Vector<ElementoSistema> temas;//temas fuera de listas(sueltos)
+	private Vector<ElementoSistema> listasytemas;
 
 	public SistemaDeMusica() {
-		listas = new Vector<ElementoSistema>();
-		temas = new Vector<ElementoSistema>();
+		listasytemas = new Vector<ElementoSistema>();
 	}
 
 	public PlayList getPlayList(String titulo) {
-		for (int i = 0; i < this.listas.size(); i++) {
-			ElementoSistema pl = this.listas.elementAt(i);
+		for (int i = 0; i < this.listasytemas.size(); i++) {
+			ElementoSistema pl = this.listasytemas.elementAt(i);
 			if (pl.getTitulo().equals(titulo)) {
 				return (PlayList) pl;
 			}
 		}
 		return null;
 	}
-	public void addPlayList(ElementoSistema es){
-		listas.addElement(es);
+	public void addPlayListOTema(ElementoSistema es){
+		listasytemas.addElement(es);
 	}
-	public void addTema(ElementoSistema es){
-		temas.addElement(es);
-	}
+
 	public int duracionTotal(String nombrePlayList) {//duracion total en segs de pistas de audio de una playlist
 		return this.getPlayList(nombrePlayList).duracionTotal();
 	}
 
 	public int duracionTotal() {//duracion total en segs de pistas de audio del sistema
 		int dt = 0;
-		for(int i=0;i<this.listas.size();i++){
-		dt+=listas.elementAt(i).duracionTotal();
-		}
-		for(int i=0;i<this.temas.size();i++){
-		dt+=temas.elementAt(i).duracionTotal();
+		for(int i=0;i<this.listasytemas.size();i++){
+		dt+=listasytemas.elementAt(i).duracionTotal();
 		}
 		return dt;
 	}
@@ -45,9 +38,9 @@ public class SistemaDeMusica {
 
 	public int cantidadElementos() {//cantidad de pistas de audio del sistema
 
-		int ce=temas.size();
-		for(int i=0;i<this.listas.size();i++){
-			ce+=this.listas.elementAt(i).cantidadElementos();
+		int ce=0;
+		for(int i=0;i<this.listasytemas.size();i++){
+			ce+=this.listasytemas.elementAt(i).cantidadElementos();
 		}
 		return ce;
 	}
@@ -56,46 +49,48 @@ public class SistemaDeMusica {
 		return this.getPlayList(nombrePlaylist).intercambiarTema(origen-1, destino-1);//le restamos 1 porque el vector empieza de la posicion 0...si el usuario quiere cambiar tema 1 con tema 2, e el vector estan en la posicion 0 y 1 respectivamente
 	}
 	
-	public void imprimir(String nombrePlayList) {//imprimir pistas de audio de una playlist
-		this.getPlayList(nombrePlayList).imprimir();
+	public String imprimir(String nombrePlayList) {//imprimir pistas de audio de una playlist
+		String aImprimir=this.getPlayList(nombrePlayList).imprimir();
+		return aImprimir;
 	}
 
-	public void imprimir() { //imprimir pistas de audio del sistema
-		for (int j = 0; j < this.temas.size(); j++) {
-			((PistaDeAudio) this.temas.elementAt(j)).imprimir();
+	public String imprimir() { //imprimir pistas de audio del sistema
+		String impr=new String();
+		for(int j=0;j<this.listasytemas.size();j++){
+			impr+=this.listasytemas.elementAt(j).imprimir();
 		}
-		for(int j=0;j<this.listas.size();j++){
-			this.listas.elementAt(j).imprimir();
-		}
-		
+		return impr;
 	}
 	
-	public void imprimirDuracionDePlaylist(String nombrePlaylist){
+	public String imprimirDuracionDePlaylist(String nombrePlaylist){
 		int duracion=this.duracionTotal(nombrePlaylist);
 		if(duracion>0){
-			System.out.println("La duracion total de la playlist "+nombrePlaylist+" es: "+duracion);
+			return ("La duracion total de la playlist "+nombrePlaylist+" es: "+duracion);
 		}
-		else{
-			System.out.println("La playlist esta vacia o no existe");
-		}
+		return ("La playlist esta vacia o no existe");
 		
 	}
 
-	public void imprimirBusqueda(Vector<ElementoSistema> resultadoBusqueda){
+	public String imprimirBusqueda(Vector<ElementoSistema> resultadoBusqueda){
+		String impr=new String();
 		for(int k=0;k<resultadoBusqueda.size();k++){
-			((PistaDeAudio)(resultadoBusqueda.elementAt(k))).imprimir();
+			impr+=((PistaDeAudio)(resultadoBusqueda.elementAt(k))).imprimir();
 		}
+		return impr;
 	}
 	
 	public Vector<ElementoSistema> buscar(Condicion c){
 		Vector<ElementoSistema> resultado= new Vector<ElementoSistema>();
-		for (int i = 0; i < this.temas.size(); i++) {
-			resultado.addAll(this.temas.elementAt(i).buscar(c));
-		}
-		for(int j=0;j<this.listas.size();j++){
-			resultado.addAll(this.listas.elementAt(j).buscar(c));
+		for(int j=0;j<this.listasytemas.size();j++){
+			resultado.addAll(this.listasytemas.elementAt(j).buscar(c));
 		}
 		return resultado;
+	}
+	
+	public void eliminar(String titulo){
+		for(ElementoSistema es:listasytemas){
+			es.eliminar(titulo);
+		}
 	}
 
 	public static void main(String[] args) {
@@ -130,7 +125,7 @@ public class SistemaDeMusica {
 		pl2.add(p12);
 		//int cantidad= sm.cantidadElementos("Clasicos Del Rock");
 		//System.out.println("la cantidad de temas de la playlist es: "+cantidad);
-		//sm.imprimir("Clasicos Del Rock");
+		//System.out.pintln(sm.imprimir("Clasicos Del Rock"));
 		//int duraciontotal= sm.duracionTotal("Clasicos Del Rock");
 		//System.out.println("La duracion total de la playlist es: "+duraciontotal);
 		pl3.add(p5);
@@ -140,33 +135,37 @@ public class SistemaDeMusica {
 		pl4.add(p12);
 		pl4.add(p11);
 		//agrega las playlist y el tema 13 al sistema de musica
-		sm.addPlayList(pl1);
-		sm.addPlayList(pl2);
-		sm.addPlayList(pl3);
-		sm.addPlayList(pl4);
-		sm.addTema(p13);
+		sm.addPlayListOTema(pl1);
+		sm.addPlayListOTema(pl2);
+		sm.addPlayListOTema(pl3);
+		sm.addPlayListOTema(pl4);
+		sm.addPlayListOTema(p13);
 		//duracion de playlists
-		sm.imprimirDuracionDePlaylist(pl1.getTitulo());
-		sm.imprimirDuracionDePlaylist(pl2.getTitulo());
-		sm.imprimirDuracionDePlaylist(pl3.getTitulo());
-		sm.imprimirDuracionDePlaylist(pl4.getTitulo());
+		System.out.println(sm.imprimirDuracionDePlaylist(pl1.getTitulo()));
+		System.out.println(sm.imprimirDuracionDePlaylist(pl2.getTitulo()));
+		System.out.println(sm.imprimirDuracionDePlaylist(pl3.getTitulo()));
+		System.out.println(sm.imprimirDuracionDePlaylist(pl4.getTitulo()));
 		//probando busquedas
 		CondicionArtistaInterprete c1=new CondicionArtistaInterprete("colDplay");
-		//sm.imprimirBusqueda(sm.buscar(c1));
+		//System.out.println(sm.imprimirBusqueda(sm.buscar(c1)));
 		CondicionTiempoMayorA c2 = new CondicionTiempoMayorA(300);
 		CondicionAND c3=new CondicionAND(c1,c2);
-		//sm.imprimirBusqueda(sm.buscar(c3));
+		//System.out.println(sm.imprimirBusqueda(sm.buscar(c3)));
 		CondicionGenero c4=new CondicionGenero("rock");
-		//sm.imprimirBusqueda(sm.buscar(c4));
+		//System.out.println(sm.imprimirBusqueda(sm.buscar(c4)));
 		CondicionNombre c5=new CondicionNombre("rock");
 		CondicionArtistaInterprete c6=new CondicionArtistaInterprete("LMFAO");
 		CondicionNOT c7=new CondicionNOT(c6);
 		CondicionAND c8=new CondicionAND(c5,c7);
-		//sm.imprimirBusqueda(sm.buscar(c8));
+		//System.out.println(sm.imprimirBusqueda(sm.buscar(c8)));
 		CondicionAnioMayorA c9=new CondicionAnioMayorA(2006);
 		CondicionAND c10=new CondicionAND(c4,c9);
 		CondicionAND c11=new CondicionAND(c4,c1);
 		CondicionOR c12=new CondicionOR(c10,c11);
-		sm.imprimirBusqueda(sm.buscar(c12));
+		//System.out.println(sm.imprimirBusqueda(sm.buscar(c12)));
+		//imprimir todos los elementos, eliminar 1 y volver a imprimir para comprobar que se elimino
+		System.out.println(sm.imprimir());
+		System.out.println("------------------probando elminar--------------------------");
+		System.out.println(sm.imprimir());
 	}
 }
