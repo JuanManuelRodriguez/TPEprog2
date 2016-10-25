@@ -7,7 +7,7 @@ public class SistemaDeMusica {
 		listasytemas = new Vector<ElementoSistema>();
 	}
 
-	public PlayList getPlayList(String titulo) {
+	public PlayList getPlayList(String titulo) { //preguntar si esta bien este metodo
 		for (int i = 0; i < this.listasytemas.size(); i++) {
 			ElementoSistema pl = this.listasytemas.elementAt(i);
 			if (pl.getTitulo().equals(titulo)) {
@@ -17,7 +17,7 @@ public class SistemaDeMusica {
 		return null;
 	}
 	public void addPlayListOTema(ElementoSistema es){
-		listasytemas.addElement(es);
+		listasytemas.add(es);
 	}
 
 	public int duracionTotal(String nombrePlayList) {//duracion total en segs de pistas de audio de una playlist
@@ -50,7 +50,8 @@ public class SistemaDeMusica {
 	}
 	
 	public String imprimir(String nombrePlayList) {//imprimir pistas de audio de una playlist
-		String aImprimir=this.getPlayList(nombrePlayList).imprimir();
+		String aImprimir="Play List "+nombrePlayList+"\n";
+		aImprimir+=this.getPlayList(nombrePlayList).imprimir();
 		return aImprimir;
 	}
 
@@ -88,8 +89,11 @@ public class SistemaDeMusica {
 	}
 	
 	public void eliminar(String titulo){
-		for(ElementoSistema es:listasytemas){
-			es.eliminar(titulo);
+		for(int i=0;i<listasytemas.size();i++){
+			listasytemas.elementAt(i).eliminar(titulo);
+			if(listasytemas.elementAt(i).getTitulo().equals(titulo)){
+				listasytemas.remove(listasytemas.elementAt(i));
+			}
 		}
 	}
 
@@ -123,17 +127,18 @@ public class SistemaDeMusica {
 		pl2.add(p4);
 		pl2.add(p7);
 		pl2.add(p12);
-		//int cantidad= sm.cantidadElementos("Clasicos Del Rock");
-		//System.out.println("la cantidad de temas de la playlist es: "+cantidad);
-		//System.out.pintln(sm.imprimir("Clasicos Del Rock"));
-		//int duraciontotal= sm.duracionTotal("Clasicos Del Rock");
-		//System.out.println("La duracion total de la playlist es: "+duraciontotal);
+		
 		pl3.add(p5);
 		pl3.add(p6);
 		pl3.add(p7);
 		
 		pl4.add(p12);
 		pl4.add(p11);
+		//int cantidad= sm.cantidadElementos("Clasicos Del Rock");
+		//System.out.println("la cantidad de temas de la playlist es: "+cantidad);
+		//System.out.pintln(sm.imprimir("Clasicos Del Rock"));
+		//int duraciontotal= sm.duracionTotal("Clasicos Del Rock");
+		//System.out.println("La duracion total de la playlist es: "+duraciontotal);
 		//agrega las playlist y el tema 13 al sistema de musica
 		sm.addPlayListOTema(pl1);
 		sm.addPlayListOTema(pl2);
@@ -145,6 +150,8 @@ public class SistemaDeMusica {
 		System.out.println(sm.imprimirDuracionDePlaylist(pl2.getTitulo()));
 		System.out.println(sm.imprimirDuracionDePlaylist(pl3.getTitulo()));
 		System.out.println(sm.imprimirDuracionDePlaylist(pl4.getTitulo()));
+		System.out.println("la duracion total del sistema es:"+sm.duracionTotal());
+		
 		//probando busquedas
 		CondicionArtistaInterprete c1=new CondicionArtistaInterprete("colDplay");
 		//System.out.println(sm.imprimirBusqueda(sm.buscar(c1)));
@@ -163,9 +170,11 @@ public class SistemaDeMusica {
 		CondicionAND c11=new CondicionAND(c4,c1);
 		CondicionOR c12=new CondicionOR(c10,c11);
 		//System.out.println(sm.imprimirBusqueda(sm.buscar(c12)));
+		
 		//imprimir todos los elementos, eliminar 1 y volver a imprimir para comprobar que se elimino
 		System.out.println(sm.imprimir());
 		System.out.println("------------------probando elminar--------------------------");
+		sm.eliminar(pl1.getTitulo());
 		System.out.println(sm.imprimir());
 	}
 }

@@ -48,7 +48,7 @@ public class PistaDeAudio extends ElementoSistema{
 	public void setTituloAlbum(String album){
 		this.tituloAlbum=album;
 	}
-	public void getAnio(int anio){
+	public void setAnio(int anio){
 		this.anio=anio;
 	}
 	public void setGenero(String genero){

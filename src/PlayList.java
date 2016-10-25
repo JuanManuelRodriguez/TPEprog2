@@ -62,6 +62,5 @@ public class PlayList extends ElementoSistema{
 				lista.remove(i);	
 			}
 		}
-	}
-		
+	}	
 }
