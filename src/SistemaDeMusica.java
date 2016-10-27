@@ -134,20 +134,18 @@ public class SistemaDeMusica {
 		
 		pl4.add(p12);
 		pl4.add(p11);
-		//cantidad de elementos de la PlayList= "Clasicos del Rock"
-		int cantidad= sm.cantidadElementos("Clasicos Del Rock");
-		System.out.println("la cantidad de temas de la playlist es: "+cantidad);
-		//muestra los elementos que contiene la PlayList="clasicos del rock"
-		System.out.println(sm.imprimir("Clasicos Del Rock"));
-		//se imprime la duracion total en segs de la PlayList="clasicos del rock"
-		int duraciontotal= sm.duracionTotal("Clasicos Del Rock");
-		System.out.println("La duracion total de la playlist es: "+duraciontotal);
 		//agrega las playlist y el tema 13 al sistema de musica
 		sm.addPlayListOTema(pl1);
 		sm.addPlayListOTema(pl2);
 		sm.addPlayListOTema(pl3);
 		sm.addPlayListOTema(pl4);
 		sm.addPlayListOTema(p13);
+		//muestra los elementos que contiene la PlayList="clasicos del rock"
+		System.out.println(sm.imprimir("Clasicos Del Rock"));
+		//muestra los elementos que contiene la PlayList="Lo Mejor"
+		System.out.println(sm.imprimir("Lo Mejor"));
+		//muestra los elementos que contiene la PlayList="Coldplay"
+		System.out.println(sm.imprimir("Coldplay"));
 		//duracion de playlists
 		System.out.println(sm.imprimirDuracionDePlaylist(pl1.getTitulo()));
 		System.out.println(sm.imprimirDuracionDePlaylist(pl2.getTitulo()));
@@ -155,29 +153,37 @@ public class SistemaDeMusica {
 		System.out.println(sm.imprimirDuracionDePlaylist(pl4.getTitulo()));
 		System.out.println("la duracion total del sistema es:"+sm.duracionTotal());
 		
-		//probando busquedas
-		CondicionArtistaInterprete c1=new CondicionArtistaInterprete("colDplay");
+		// busquedas
+	
 		//System.out.println(sm.imprimirBusqueda(sm.buscar(c1)));
-		CondicionTiempoMayorA c2 = new CondicionTiempoMayorA(300);
-		CondicionAND c3=new CondicionAND(c1,c2);
-		//System.out.println(sm.imprimirBusqueda(sm.buscar(c3)));
+		//muestra las pistas cuya duración sea superior a 400 segundos
+		CondicionTiempoMayorA c2 = new CondicionTiempoMayorA(400);
+		System.out.println(sm.imprimirBusqueda(sm.buscar(c2)));
+		
+		//muestra las pistas cuyo género contenga la palabra “rock”
 		CondicionGenero c4=new CondicionGenero("rock");
-		//System.out.println(sm.imprimirBusqueda(sm.buscar(c4)));
+		System.out.println(sm.imprimirBusqueda(sm.buscar(c4)));
+		
+		//muestra las pistas cuyo nombre contenga “rock” Y cuyo interprete NO sea “LMFAO”
 		CondicionNombre c5=new CondicionNombre("rock");
 		CondicionArtistaInterprete c6=new CondicionArtistaInterprete("LMFAO");
 		CondicionNOT c7=new CondicionNOT(c6);
 		CondicionAND c8=new CondicionAND(c5,c7);
-		//System.out.println(sm.imprimirBusqueda(sm.buscar(c8)));
+		System.out.println(sm.imprimirBusqueda(sm.buscar(c8)));
+		
+		//muestra las pistas cuyo género contenga “rock” y cuya fecha sea mayor a “2006”, o cuyo género contenga “rock” y
+		//cuyo intérprete sea “coldplay”
 		CondicionAnioMayorA c9=new CondicionAnioMayorA(2006);
+		CondicionArtistaInterprete c1=new CondicionArtistaInterprete("colDplay");
 		CondicionAND c10=new CondicionAND(c4,c9);
 		CondicionAND c11=new CondicionAND(c4,c1);
 		CondicionOR c12=new CondicionOR(c10,c11);
-		//System.out.println(sm.imprimirBusqueda(sm.buscar(c12)));
+		System.out.println(sm.imprimirBusqueda(sm.buscar(c12)));
 		
-		//imprimir todos los elementos, eliminar 1 y volver a imprimir para comprobar que se elimino
-		System.out.println(sm.imprimir());
-		System.out.println("------------------probando elminar--------------------------");
-		sm.eliminar(pl1.getTitulo());
-		System.out.println(sm.imprimir());
+		//imprimir todos los elementos, eliminar la playlist 1 y volver a imprimir para comprobar que se elimino
+		//System.out.println(sm.imprimir());
+		//System.out.println("------------------probando elminar--------------------------");
+		//sm.eliminar(pl1.getTitulo());
+		//System.out.println(sm.imprimir());
 	}
 }
