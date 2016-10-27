@@ -6,7 +6,7 @@ public class CondicionTiempoMayorA extends Condicion{
 	}
 	@Override
 	public boolean cumple(ElementoSistema es) {
-		return ((PistaDeAudio)es).duracionTotal()>tiempo;
+		return ((PistaDeAudio)es).duracionTotal()>=tiempo;
 	}
 
 }

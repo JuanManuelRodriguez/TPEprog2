@@ -82,7 +82,7 @@ public class PistaDeAudio extends ElementoSistema{
 	}
 	@Override
 	public void eliminar(String titulo) {
-		// No hago nada(?) PREGUNTAR
-		System.out.println("pista de audio: "+this.getTitulo());
+		// No hago nada
+		System.out.println("pista de audio: "+this.getTitulo()+" eliminada");
 	}
 }

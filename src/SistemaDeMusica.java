@@ -7,7 +7,7 @@ public class SistemaDeMusica {
 		listasytemas = new Vector<ElementoSistema>();
 	}
 
-	public PlayList getPlayList(String titulo) { //preguntar si esta bien este metodo
+	public PlayList getPlayList(String titulo) {
 		for (int i = 0; i < this.listasytemas.size(); i++) {
 			ElementoSistema pl = this.listasytemas.elementAt(i);
 			if (pl.getTitulo().equals(titulo)) {
@@ -134,11 +134,14 @@ public class SistemaDeMusica {
 		
 		pl4.add(p12);
 		pl4.add(p11);
-		//int cantidad= sm.cantidadElementos("Clasicos Del Rock");
-		//System.out.println("la cantidad de temas de la playlist es: "+cantidad);
-		//System.out.pintln(sm.imprimir("Clasicos Del Rock"));
-		//int duraciontotal= sm.duracionTotal("Clasicos Del Rock");
-		//System.out.println("La duracion total de la playlist es: "+duraciontotal);
+		//cantidad de elementos de la PlayList= "Clasicos del Rock"
+		int cantidad= sm.cantidadElementos("Clasicos Del Rock");
+		System.out.println("la cantidad de temas de la playlist es: "+cantidad);
+		//muestra los elementos que contiene la PlayList="clasicos del rock"
+		System.out.println(sm.imprimir("Clasicos Del Rock"));
+		//se imprime la duracion total en segs de la PlayList="clasicos del rock"
+		int duraciontotal= sm.duracionTotal("Clasicos Del Rock");
+		System.out.println("La duracion total de la playlist es: "+duraciontotal);
 		//agrega las playlist y el tema 13 al sistema de musica
 		sm.addPlayListOTema(pl1);
 		sm.addPlayListOTema(pl2);
